@@ -59,7 +59,7 @@
             font-weight: 700;
             color: #000400;
             letter-spacing: 1px;
-            margin-top:0px; /* Adds space between logo and website name */
+            margin-top:0px;
             text-align: center;
         }
 
@@ -278,10 +278,76 @@
             position: relative;
             z-index: 1;
         }
+
+        /* Subscription Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .subscription-plan {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .subscription-plan h3 {
+            margin-top: 0;
+        }
+
+        .subscription-plan ul {
+            padding-left: 20px;
+        }
+
+        .subscription-plan button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .subscription-plan button:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 <body>
-      
     <header class="top-bar">
         <div class="logo-container">
             <span class="website-name">Health Quest</span>
@@ -290,7 +356,7 @@
             <a href="mainpage.html" class="nav-item"><i class="bi bi-house"></i>MyMeal</a>
             <a href="calorietracketr.html" class="nav-item"><i class="bi bi-calculator"></i>Track Calories</a>
             <a href="#" class="nav-item"><i class="bi bi-calendar2-date"></i>Meal Plans</a>
-            
+            <a href="#" class="nav-item" id="subscribeBtn"><i class="bi bi-star"></i>Subscribe</a>
             <a href="contactus.html" class="nav-item"><i class="bi bi-person-lines-fill"></i>Contact Us</a>
         </nav>
         <div class="user-profile">
@@ -298,9 +364,11 @@
             <a href="signup.html" class="btn btn-success">Sign Up</a>
         </div>
     </header>
+
     <div class="background-image">
         <img src="greenery.jpg" alt="Greenery Background">
     </div>
+
     <div class="container">
         <section class="hero-section">
             <h1>Plan Your Meals</h1>
@@ -373,6 +441,62 @@
         </section>
     </div>
 
+    <!-- Subscription Modal -->
+    <div id="subscriptionModal" class="modal">
+        <div  class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Choose Your Subscription Plan</h2>
+            <div class="subscription-plan">
+                <h3>Solo Plan</h3>
+                <p>$9.99/month</p>
+                <ul>
+                    <li>1 user</li>
+                    <li>Basic meal planning</li>
+                    <li>Calorie tracking</li>
+                </ul>
+                <select class="form-select mb-3" aria-label="Subscription duration">
+                    <option value="1">1 month</option>
+                    <option value="3">3 months</option>
+                    <option value="6">6 months</option>
+                    <option value="12">12 months</option>
+                </select>
+                <button onclick="selectPlan('Solo', 9.99, this.previousElementSibling.value)">Select Solo Plan</button>
+            </div>
+            <div class="subscription-plan">
+                <h3>Duo Plan</h3>
+                <p>$14.99/month</p>
+                <ul>
+                    <li>2 users</li>
+                    <li>Advanced meal planning</li>
+                    <li>Calorie and macronutrient tracking</li>
+                </ul>
+                <select class="form-select mb-3" aria-label="Subscription duration">
+                    <option value="1">1 month</option>
+                    <option value="3">3 months</option>
+                    <option value="6">6 months</option>
+                    <option value="12">12 months</option>
+                </select>
+                <button onclick="selectPlan('Duo', 14.99, this.previousElementSibling.value)">Select Duo Plan</button>
+            </div>
+            <div class="subscription-plan">
+                <h3>Family Plan</h3>
+                <p>$24.99/month</p>
+                <ul>
+                    <li>Up to 5 users</li>
+                    <li>Premium meal planning</li>
+                    <li>Comprehensive nutrition tracking</li>
+                </ul>
+                <select class="form-select mb-3" aria-label="Subscription duration">
+                    <option value="1">1 month</option>
+                    <option value="3">3 months</option>
+                    <option value="6">6 months</option>
+                    <option value="12">12 months</option>
+                </select>
+                <button onclick="selectPlan('Family', 24.99, this.previousElementSibling.value)">Select Family Plan</button>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <p>&copy; 2024 Health Quest. All rights reserved.</p>
         <span><i class="bi bi-instagram"></i></span> 
@@ -382,5 +506,45 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Get the modal
+        var modal = document.getElementById("subscriptionModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("subscribeBtn");
+
+        
+        var span = document.getElementsByClassName("close")[0];
+
+       
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Function to handle plan selection
+        function selectPlan(plan, price, duration) {
+            const totalPrice = (price * duration).toFixed(2);
+            alert(`You have selected the ${plan} plan for ${duration} month(s). Total price: $${totalPrice}. Click OK to proceed to payment.`);
+            // Store the selected plan, price, and duration in localStorage
+            localStorage.setItem('selectedPlan', plan);
+            localStorage.setItem('selectedPrice', price);
+            localStorage.setItem('selectedDuration', duration);
+            localStorage.setItem('totalPrice', totalPrice);
+            // Redirect to the payment page
+            window.location.href = 'payment.html';
+        }
+    </script>
 </body>
 </html>
