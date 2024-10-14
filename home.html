@@ -536,7 +536,7 @@
         // Function to handle plan selection
         function selectPlan(plan, price, duration) {
             const totalPrice = (price * duration).toFixed(2);
-            alert(`You have selected the ${plan} plan for ${duration} month(s). Total price: $₹{totalPrice}. Click OK to proceed to payment.`);
+            alert(`You have selected the ${plan} plan for ${duration} month(s). Total price: $${totalPrice}. Click OK to proceed to payment.`);
             // Store the selected plan, price, and duration in localStorage
             localStorage.setItem('selectedPlan', plan);
             localStorage.setItem('selectedPrice', price);
